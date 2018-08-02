@@ -319,6 +319,7 @@ class GetFreeProxy(object):
             for proxy in content:
                 proxies = proxy.split("#")
                 if len(proxies) >=2 and proxies[1] == "US":
+                    print proxies[0]
                     yield proxies[0]
         
 
