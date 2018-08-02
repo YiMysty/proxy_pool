@@ -313,7 +313,7 @@ class GetFreeProxy(object):
         url = "http://list.didsoft.com/get"
         result = []
         querystring = {"email":"yimingzi@foxmail.com","pass":"8urx2d","pid":"httppremium","https":"yes"}
-        response = requests.request("GET", url, data=payload, headers=headers, params=querystring)
+        response = requests.request("GET", url, headers={}, params=querystring)
         if response.status_code == 200:
             content = response.text.split("\n")
             for proxy in content:
