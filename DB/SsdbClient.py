@@ -41,7 +41,7 @@ class SsdbClient(object):
         :return:
         """
         self.name = name
-        self.__conn = Redis(connection_pool=BlockingConnectionPool(host=host, port=port))
+        self.__conn = Redis(connection_pool=BlockingConnectionPool(host=host, port=port, password="cheflingRedis01"))
 
     def get(self, proxy):
         """
