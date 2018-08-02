@@ -31,7 +31,7 @@ class RedisClient(object):
         :return:
         """
         self.name = name
-        self.__conn = redis.Redis(host=host, port=port, db=0)
+        self.__conn = redis.Redis(host=host, port=port, db=0, password="cheflingRedis01")
 
     def get(self):
         """
