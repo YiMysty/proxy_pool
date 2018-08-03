@@ -14,6 +14,7 @@
 import re
 import sys
 import requests
+from Speedy import Speedy
 
 try:
     from importlib import reload  # py3 实际不会实用，只是为了不显示语法错误
@@ -319,13 +320,20 @@ class GetFreeProxy(object):
             for proxy in content:
                 proxies = proxy.split("#")
                 if len(proxies) >=2 and proxies[1] == "US":
-                    yield proxies[0]
+                    isValid = True
+                    try:
+                        speedy = Speedy(['egg'], '98043', {'https': proxies[0]})
+                        result = speedy.runAsync()
+                        if len(result[0]['search']) == 0:
+                            isValid = False
+                    except:
+                        if speedy.getAll():
+                            isValid = False
+                    if isValid:
+                        yield proxies[0]
         
 
 if __name__ == '__main__':
     from CheckProxy import CheckProxy
+    CheckProxy.checkGetProxyFunc(GetFreeProxy.freeProxyCustom)
 
-    CheckProxy.checkGetProxyFunc(GetFreeProxy.freeProxyFifth)
-    CheckProxy.checkGetProxyFunc(GetFreeProxy.freeProxySecond)
-
-    CheckProxy.checkAllGetProxyFunc()
