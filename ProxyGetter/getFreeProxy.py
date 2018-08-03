@@ -327,10 +327,12 @@ class GetFreeProxy(object):
                         if len(result[0]['search']) == 0:
                             isValid = False
                     except:
-                        if speedy.getAll():
-                            isValid = False
+                        content = requests.get("http://www.chefling-redis.com:6060/get_all/").content
+                        isValid = len(content.split('/n')) <= 3
                     if isValid:
                         yield proxies[0]
+                    else:
+                        print 'Invalid ' + proxies[0]
         
 
 if __name__ == '__main__':

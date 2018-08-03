@@ -20,10 +20,6 @@ class Speedy:
         self.proxies = proxies
         self.init()
 
-    def getAll(self):
-        content = requests.get("http://www.chefling-redis.com:6060/get_all/").content
-        return len(content.split('/n')) > 3
-
     def init(self,):
         url = self.baseUrl + 'egg'
         response = requests.get(url, headers = self.headers, proxies=self.proxies, timeout = 3)
@@ -47,8 +43,11 @@ class Speedy:
         try:
             response = requests.get(url, headers = self.headers, cookies = self.cookies, proxies=self.proxies, timeout = 3)
         except:
-            return result
-        if response.status_code == 200:
+            result = {
+                'name' : name,
+                'raw' : ""
+            }
+        if response != None and response.status_code == 200:
             result['raw'] = response.text
 
         self.queue.put(result)
