@@ -40,6 +40,7 @@ class Speedy:
             'name' : name,
             'raw' : ""
         }
+        response = None
         try:
             response = requests.get(url, headers = self.headers, cookies = self.cookies, proxies=self.proxies, timeout = 3)
         except:
